@@ -1,5 +1,4 @@
 const numberInput = document.querySelector('#number');
-const factDiv = document.querySelector('#fact');
 const factText = document.querySelector('#factText');
 
 function getFact() {
@@ -7,15 +6,18 @@ function getFact() {
   const url = 'http://numbersapi.com/' + number + '?json';
 
   if(number === "") {
-    factDiv.classList.add('opacity-0');
+    factText.classList.replace('opacity-100', 'opacity-0');
   } else {
-    factDiv.style.opacity = 0;
+    factText.classList.replace('opacity-100', 'opacity-0');
 
     fetch(url)
     .then((response) => response.json())
     .then((data) => {
       factText.innerText = data.text;
-      factDiv.style.opacity = 1;
+      factText.classList.replace('opacity-0', 'opacity-100');
+    })
+    .catch((err) => {
+      factText.innerText = 'Something went wrong, please try again.'
     });
   }
 }
