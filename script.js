@@ -22,5 +22,5 @@ function getFact() {
   }
 }
 
-numberInput.addEventListener('change', getFact);
-document.addEventListener('DOMContentLoaded', getFact);
+numberInput.addEventListener('change', () => getFact());
+document.addEventListener('DOMContentLoaded', () => getFact());
