@@ -1,7 +1,7 @@
 const numberInput = document.querySelector('#number');
 const factText = document.querySelector('#factText');
 
-function getFact() {
+async function getFact() {
   const number = numberInput.value;
   const url = 'http://numbersapi.com/' + number + '?json';
 
@@ -9,16 +9,17 @@ function getFact() {
     factText.classList.replace('opacity-100', 'opacity-0');
   } else {
     factText.classList.replace('opacity-100', 'opacity-0');
-
-    fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      factText.innerText = data.text;
+    
+    try {
+      const response = await fetch(url);
+      const responseJSON = await response.json();
+      factText.innerText = responseJSON.text;
       factText.classList.replace('opacity-0', 'opacity-100');
-    })
-    .catch((err) => {
-      factText.innerText = 'Something went wrong, please try again.'
-    });
+    } catch (error) {
+      factText.innerText = 'Something went wrong, please try again.';
+      factText.classList.replace('opacity-0', 'opacity-100');
+      console.log(error);
+    }
   }
 }
 
